@@ -8,16 +8,16 @@ int main() {
 
     printf("1 - Sierpiński carpet\n2 - Mandelbrot set\n\nEnter option: ");
     scanf("%d", &option);
-    
-    printf("\nEnter n: ");
-    scanf("%d", &n);
 
     if (option == 1) { 
         // Sierpiński carpet
+        //
+        printf("\nEnter n: ");
+        scanf("%d", &n);
         printSquare(n, 0, 0, nCount(n));
     } else if (option == 2) {
         // Mandelbrot set
-        printMandelbrot(n);
+        printMandelbrot();
     }
 
     return 0;
