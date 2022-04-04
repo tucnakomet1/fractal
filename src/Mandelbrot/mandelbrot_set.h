@@ -1,83 +1,110 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <complex.h>
 
 
 // Defining the size of the screen.
-#define LIMIT 30
-#define LIMITSQUARED 4
-#define ASCII " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
-#define STARTREAL -2
-#define STARTIMAGINARY -1
-#define END 1
+//#define ASCII " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+//#define ASCII2 "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+
+#define ASCII "M@#W$BG5E20Tbca?1!;:+=-,._` "
+#define ASCII2 " `_.,-=+:;!1?acbT02E5GB$W#@M"
+
+#define LIMIT 240
+#define START -2.0
+#define START2 -1.0
+#define END 1.0
 
 int width, height;
+
 void callMandelbrot();
+void getResolution();
+double complex Cpow(double complex z);
+double complex Cadd(double complex z, double complex c);
+
+
+// powing complex numbers
+double complex Cpow(double complex z) {
+    double real, imag;
+    double a = creal(z), b=cimag(z);
+
+    // a = a^2 - b^2
+    real = pow(a, 2) - pow(b, 2);
+
+    // b = 2*a*b
+    imag = 2*a*b;
+
+    return CMPLX(real, imag);
+}
+
+
+// summing complex numbers
+double complex Cadd(double complex z, double complex c) {
+    double realAdd, imagAdd;
+
+    realAdd = creal(z) + creal(c);
+    imagAdd = cimag(z) + cimag(c);
+
+    return CMPLX(realAdd, imagAdd);
+}
+
 
 // get resolution of terminal
 void getResolution() {
     struct winsize wnsz;
     ioctl(0, TIOCGWINSZ, &wnsz);
 
-    width = (wnsz.ws_row)/2;
+    width = (wnsz.ws_row);
     height = (wnsz.ws_col);
 
     printf("%d x %d \n", width, height);
 }
 
+
+// calculate mandel
 int calculateMandel(double complex c) {
-    double z = 0.0;
+    double complex zz, z = 0.0;
     int n = 0;
 
-    while (n < LIMIT) {
-        z = pow(z, 2) + c;
-
-        if (abs(z) > 2) {
-            // |z|<= 2;
-            break;
-        }
+    // Hausdorff measure = 2
+    // |z| <= 2
+    while ((cabs(z) <= 2) && (n < LIMIT)) {
+        zz = Cpow(z);
+        z = Cadd(zz, c);
+        
         n++;
     }
-
     return n;
-
-
 }
 
 void callMandelbrot() {
     getResolution();
 
-    for (int x = 1; x <= width; x++) {
-        for (int y = 1; y <= height; y++) {
-            double realA = STARTREAL + (x / width) * (END - STARTREAL);
-            double imaginaryB = STARTIMAGINARY + (y / height) * (END - STARTIMAGINARY);
-            double complex c = CMPLX(realA, imaginaryB);
+    for (int y = 0; y < width; y++) {
+        for (int x = 0; x < height; x++) {
+            // a... real number; 
+            // b... imaginary number
+            double a = START + ((double) x / height) * (END - START);
+            double b = START2 + ((double) y / width) * (END - START2);
 
-            int res = calculateMandel(c);
-            //printf("%d\n", res);
+            // c = a + bi; 
+            double complex c = CMPLX(a, b);
 
-            if (res >= LIMIT) {
-                printf(" ");
-            } else {
-                //printf("res:%d\n", res);
-                printf("C");
-            }
+            int m = calculateMandel(c);
+
+            if (m > LIMIT) { printf(" "); } 
+            else { printf("%c", ASCII2[(m - 1) % strlen(ASCII2)]); }
             
-
-        } printf("\r\n");
+        } 
+        printf("\r\n");
     }
 }
 
 
 // main - is called by fractal.c function
 int printMandelbrot() {
-    double real = 2.3;
-    double image = 4.3;
-    double complex z = CMPLX(real, image);
-    double complex c = conjf(z);
-
-    printf("z = %.1f%.1f\n c = %.1f\n abs=%.1f   %.1f\n", creal(c), cimag(c), c, abs(c), abs(z));
     callMandelbrot();
     return 0;
 }

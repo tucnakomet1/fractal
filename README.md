@@ -8,7 +8,7 @@ C library that simulates many fractals. You can generate them into terminal, int
 
 - currently in development
 
-- avaiable just in GUI
+- avaiable just in ASCII
 
 ![mandel_gif](src/Mandelbrot/Mandelbrot_set.gif)
 
@@ -16,7 +16,7 @@ C library that simulates many fractals. You can generate them into terminal, int
 
 ## Sierpińsky carpet
 
-- avaiable only in termianl
+- avaiable only in ASCII
 
 
 
