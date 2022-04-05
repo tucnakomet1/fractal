@@ -1,31 +1,36 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <complex.h>
+#include <stdbool.h>
+#include "hsv_to_rgb.h"
 
-
-// Defining the size of the screen.
-//#define ASCII " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 //#define ASCII2 "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+//#define ASCII " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 
-#define ASCII "M@#W$BG5E20Tbca?1!;:+=-,._` "
-#define ASCII2 " `_.,-=+:;!1?acbT02E5GB$W#@M"
+#define ASCII2 "M@#W$BG5E20Tbca?1!;:+=-,._` "
+#define ASCII " `_.,-=+:;!1?acbT02E5GB$W#@M"
 
-#define LIMIT 240
+#define ANSI_f_start "\x1b[38;2;"
+#define ANSI_end "\x1b[0m"
+
+#define LIMIT 250
 #define START -2.0
 #define START2 -1.0
 #define END 1.0
 
 int width, height;
 
-void callMandelbrot();
-void getResolution();
 double complex Cpow(double complex z);
 double complex Cadd(double complex z, double complex c);
+void getResolution();
+int calculateMandel(double complex c);
+void callMandelbrot();
+int printMandelbrot(bool clr);
 
+bool color = false;
 
-// powing complex numbers
+// powering complex numbers
 double complex Cpow(double complex z) {
     double real, imag;
     double a = creal(z), b=cimag(z);
@@ -79,6 +84,8 @@ int calculateMandel(double complex c) {
     return n;
 }
 
+
+// calculating and printing mandelbrot
 void callMandelbrot() {
     getResolution();
 
@@ -95,16 +102,33 @@ void callMandelbrot() {
             int m = calculateMandel(c);
 
             if (m > LIMIT) { printf(" "); } 
-            else { printf("%c", ASCII2[(m - 1) % strlen(ASCII2)]); }
-            
+            else { 
+                int H, S, V, r, g, b;
+
+                H = (255 * m) / LIMIT;
+                S = 100;
+                if (m < LIMIT) { V = 100; }
+                else { V = 0; }
+
+                r = hsv_to_rgb(H, S, V, 0);
+                g = hsv_to_rgb(H, S, V, 1);
+                b = hsv_to_rgb(H, S, V, 2);
+
+                if (color) {
+                    printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);
+                } else {
+                    printf("%c", ASCII[(m) % strlen(ASCII)]);
+                }
+            }
         } 
         printf("\r\n");
     }
 }
 
 
-// main - is called by fractal.c function
-int printMandelbrot() {
+// main function - is called by fractal.c function
+int printMandelbrot(bool clr) {
+    color = clr;
     callMandelbrot();
     return 0;
 }

@@ -1,8 +1,19 @@
 Mandelbrot set
 ====
 
+## Examples
 
-### A little bit of theory 
+*Resolution 169 x 931; min zoom*
+
+| Normal mode | Color mode | Color mode inverse |
+| --- | --- | --- |
+| ![normal_ascii](mandelbrot_ascii.png) | ![color_ascii](mandelbrot_ascii_color.png) | ![color_inverse_ascii](mandelbrot_ascii_color_inverse.png) |
+
+
+Text example also avaiable [here](mandelbrot_ascii.txt).
+
+
+## A little bit of theory 
 
 The equation for Mandelbrot set is:  $f_{c}(z)=z^{2}+c$
 
@@ -29,7 +40,7 @@ Which is, as we can see, another complex number with real part $a^2 - b^2$ and i
 This process'll continue to the endless, so we have to set limitation → you can set whatever you want, I set **250** becouse its useless to use more iterations than that. `#define LIMIT 250`
 
 
-### Programming integration
+## Programming integration
 
 Now we have to integrate all that simple math into code.
 
@@ -66,7 +77,7 @@ void callMandelbrot() {
 ```
 
 The basics are done, now we have to integrate the complex numbers.
-First, we have to set (define) `LIMIT` of iterations, `START` position for $\R$ numbers, `START2` position for $\mathbb{C}$ numbers and `END` position:
+First, we have to set (define) `LIMIT` of iterations, `START` position for $\mathbb{R}$ numbers, `START2` position for $\mathbb{C}$ numbers and `END` position:
 
 ```c
 #define LIMIT 250
@@ -135,11 +146,3 @@ The best is, to use characters sorted by brightness and then print them by $m$ v
             }
 
 ```
-
-## Examples
-
-![terminal](mandelbrot_ascii.png)
-*Resolution 169 x 931*
-
-Text example also avaiable [here](mandelbrot_ascii.txt).
-

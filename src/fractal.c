@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "Sierpinsky/sierpinsky_carpet.h"
 #include "Mandelbrot/mandelbrot_set.h"
 
@@ -11,13 +12,16 @@ int main() {
 
     if (option == 1) { 
         // Sierpiński carpet
-        //
         printf("\nEnter n: ");
         scanf("%d", &n);
+        
         printSquare(n, 0, 0, nCount(n));
+
     } else if (option == 2) {
         // Mandelbrot set
-        printMandelbrot();
+        
+        // bool color = true/ false;
+        printMandelbrot(true);
     }
 
     return 0;
