@@ -107,12 +107,14 @@ void callMandelbrot() {
 
                 H = (255 * m) / LIMIT;
                 S = 100;
-                if (m < LIMIT) { V = 100; }
-                else { V = 0; }
+                V = 100;
+
+                if (m == LIMIT) { V = 0; }
 
                 r = hsv_to_rgb(H, S, V, 0);
                 g = hsv_to_rgb(H, S, V, 1);
                 b = hsv_to_rgb(H, S, V, 2);
+
 
                 if (color) {
                     printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);
