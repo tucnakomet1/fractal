@@ -7,7 +7,7 @@
 int main() {
     int option, n;
 
-    printf("1 - Sierpiński carpet\n2 - Mandelbrot set\n\nEnter option: ");
+    printf("1 - Sierpiński carpet\n2 - Mandelbrot set ascii\n3 - Mandelbrot set render image\n\nEnter option: ");
     scanf("%d", &option);
 
     if (option == 1) { 
@@ -22,6 +22,8 @@ int main() {
         
         // bool color = true/ false;
         printMandelbrot(true);
+    } else if (option == 3) {
+        renderMandelbrot();
     }
 
     return 0;

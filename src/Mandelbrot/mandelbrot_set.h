@@ -14,7 +14,7 @@
 #define ANSI_f_start "\x1b[38;2;"
 #define ANSI_end "\x1b[0m"
 
-#define LIMIT 250
+#define LIMIT 100
 #define START -2.0
 #define START2 -1.0
 #define END 1.0
@@ -73,9 +73,10 @@ int calculateMandel(double complex c) {
     double complex zz, z = 0.0;
     int n = 0;
 
-    // Hausdorff measure = 2
-    // |z| <= 2
+    // |z| <= 2;  Hausdorff measure = 2
     while ((cabs(z) <= 2) && (n < LIMIT)) {
+        // zz = z^2
+        // z = z^2 + c <=> z = zz + c
         zz = Cpow(z);
         z = Cadd(zz, c);
         
@@ -134,3 +135,65 @@ int printMandelbrot(bool clr) {
     callMandelbrot();
     return 0;
 }
+
+
+
+/* mandelbrot image render */
+#define STB_IMAGE_IMPLEMENTATION
+#include "../stb/stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../stb/stb_image_write.h"
+
+
+// main function
+int renderMandelbrot() {
+    printf("Hello world!!");
+    
+    //save_image(1920, 1080, 0, 255, 100);
+
+    width = 4000;
+    height = 3000;
+
+    unsigned char data[(int)(width*2) * (int)(height*2) * 3];
+    int index = 0;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            // a... real number;
+            // b... imaginary number
+            double a = START + ((double) x / (height/1.5)) * (END - START);
+            double b = START2 + ((double) y / width*1.5) * (END - START2);
+
+            // c = a + bi;
+            double complex c = CMPLX(a, b);
+
+            int m = calculateMandel(c);
+
+            if (m > LIMIT) { printf(" "); }
+            else {
+                int H, S, V, r, g, b;
+
+                H = (255 * m) / LIMIT;
+                S = 100;
+                V = 100;
+
+                if (m == LIMIT) { V = 0; }
+
+                r = hsv_to_rgb(H, S, V, 0);
+                g = hsv_to_rgb(H, S, V, 1);
+                b = hsv_to_rgb(H, S, V, 2);
+
+                data[index++] = (unsigned char)r;
+                data[index++] = (unsigned char)g;
+                data[index++] = (unsigned char)b;
+            }
+        }
+        //printf("\r\n");
+    }
+    stbi_write_jpg("jpg_test_.jpg", width, height, 3, data, width*3);
+
+
+
+    return 0;
+}
+

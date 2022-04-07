@@ -7,7 +7,10 @@ Mandelbrot set
 
 | Normal mode | Color mode | Color mode inverse |
 | --- | --- | --- |
-| ![normal_ascii](mandelbrot_ascii.png) | ![color_ascii](mandelbrot_ascii_color.png) | ![color_inverse_ascii](mandelbrot_ascii_color_inverse.png) |
+| ![normal_ascii](examples/mandelbrot_ascii.png) | ![color_ascii](examples/mandelbrot_ascii_color.png) | ![color_inverse_ascii](examples/mandelbrot_ascii_color_inverse.png) |
+
+*Rendered 1920x1440 using STB*
+![normal_ascii](examples/jpg_test_.jpg)
 
 
 Text example also avaiable [here](mandelbrot_ascii.txt).
@@ -145,4 +148,49 @@ The best is, to use characters sorted by brightness and then print them by $m$ v
                 printf("%c", ASCII2[(m - 1) % strlen(ASCII2)]);
             }
 
+```
+
+### Coloring Mandelbrot
+We can easy calculate the HSV (Hue, Saturation, Value) and then convert it into RGB and then just print it using ANSII Escape code.
+
+ANSI for RGB in foreground is defined by this:
+
+```c
+#define ANSI_f_start "\x1b[38;2;"   // for foreground
+#define ANSI_end "\x1b[0m"          // to end ANSI coloring
+```
+
+The calculation proces could look like this. At first, set the Saturation and Hue to `100` and calculate the Hue using simple formula $255 \cdot \frac{m}{LIMIT}$. If m is equal to LIMIT, we set the color to black (value = `0`).
+
+Now we just need to convert the HSV to RGB. I made simple convertor based on few articles...
+
+And thats all. Import `<stdbool.h>` and add parameter into main function. 
+
+If you want to print the color (`color = true`), print it using:
+`printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);`. 
+
+Otherwise use the normal print based on brightness.
+
+```c
+                // define HSV and RGB as integers
+                int H, S, V, r, g, b;
+
+                H = (255 * m) / LIMIT;
+                S = 100;
+                V = 100;
+
+                // set color black if m equals to LIMIT
+                if (m == LIMIT) { V = 0; }
+
+                // convert HSV to RGB
+                r = hsv_to_rgb(H, S, V, 0);
+                g = hsv_to_rgb(H, S, V, 1);
+                b = hsv_to_rgb(H, S, V, 2);
+
+
+                if (color) {
+                    printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);
+                } else {
+                    printf("%c", ASCII[(m) % strlen(ASCII)]);
+                }
 ```
