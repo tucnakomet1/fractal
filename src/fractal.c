@@ -12,18 +12,27 @@ int main() {
 
     if (option == 1) { 
         // Sierpiński carpet
+
         printf("\nEnter n: ");
         scanf("%d", &n);
         
         printSquare(n, 0, 0, nCount(n));
 
     } else if (option == 2) {
-        // Mandelbrot set
-        
-        // bool color = true/ false;
+        // Mandelbrot set ascii mode
+
+        /* bool color*/
         printMandelbrot(true);
+
     } else if (option == 3) {
-        renderMandelbrot();
+        // Mandelbrot set rendering mode
+        
+        /* int width;
+         * int height;
+         * int format --> 0 = png;     1 = jpg;
+         * int color ---> 0 = colored; 1 = gray; 2 = sepia;
+         */
+        renderMandelbrot(3000, 2000, 0, 0);
     }
 
     return 0;

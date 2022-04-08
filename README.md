@@ -6,31 +6,40 @@ C library that simulates many fractals. You can generate them into terminal, int
 
 ## Mandelbrot set
 
-- currently in development
+- currently in main development
 
-- avaiable just in ASCII
+- [x] Available in ascii
+- [ ] Available in GUI
+- [x] Available in rendered image
 
-![mandel_gif](src/Mandelbrot/examples/Mandelbrot_set.gif)
+![mandel_rendered_image](src/Mandelbrot/examples/color_80_iter.png)
 
+![mandel_rendered_image](src/Mandelbrot/examples/mandelbrot_ascii_color.png)
 
 
 ## Sierpińsky carpet
 
-- avaiable only in ASCII
-
-
+- [x] Available in ascii
+- [ ] Available in GUI
+- [ ] Available in rendered image
 
 ![gif](src/Sierpinsky/sierpenski.gif)
 
+## Sierpińsky Triengle
+
+- [ ] Available in ascii
+- [ ] Available in GUI
+- [ ] Available in rendered image
 
 
 ## TODO
+- [ ] ASCII User interface
 - [x] Mandebrot ascii
-- [] Mandebrot GUI
+- [ ] Mandebrot GUI
 - [x] Mandebrot render image
 - [x] Sierpińsky carpet ascii
-- [] Sierpińsky carpet GUI
-- [] Sierpińsky carpet render image
-- [] Sierpińsky triangle ascii
-- [] Sierpińsky triangle GUI
-- [] Sierpińsky triangle render image
+- [ ] Sierpińsky carpet GUI
+- [ ] Sierpińsky carpet render image
+- [ ] Sierpińsky triangle ascii
+- [ ] Sierpińsky triangle GUI
+- [ ] Sierpińsky triangle render image
