@@ -9,7 +9,7 @@ C library that simulates many fractals. You can generate them into terminal, int
 - currently in main development
 
 - [x] Available in ascii
-- [ ] Available in GUI
+- [ ] Available in GUI (almost done)
 - [x] Available in rendered image
 
 ![mandel_rendered_image](src/Mandelbrot/examples/color_80_iter.png)
