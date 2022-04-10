@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "Sierpinsky/sierpinsky_carpet.h"
 #include "Mandelbrot/mandelbrot_set.h"
-
+#include "Mandelbrot/mandelbrot_sdl.h"
 
 int main() {
     int option, n;
@@ -32,11 +32,11 @@ int main() {
          * int format --> 0 = png;     1 = jpg;
          * int color ---> 0 = colored; 1 = gray; 2 = sepia;
          */
-        renderMandelbrot(30000, 2000, 0, 0);
+        renderMandelbrot(3000, 2000, 0, 1);
+        
     } else if (option == 4) {
         // Mandelbrot GUI
-
-        showMandelbrot();
+        mandelbrot_sdl();
     }
 
     return 0;
