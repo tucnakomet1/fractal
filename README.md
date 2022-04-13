@@ -9,13 +9,14 @@ C library that simulates many fractals. You can generate them into terminal, int
 - currently in main development
 
 - [x] Available in ascii
-- [ ] Available in GUI (almost done)
+- [x] Available in GUI (almost done)
 - [x] Available in rendered image
 
 ![mandel_rendered_image](src/Mandelbrot/examples/color_80_iter.png)
 
-![mandel_rendered_image](src/Mandelbrot/examples/mandelbrot_ascii_color.png)
+![mandel_ascii](src/Mandelbrot/examples/mandelbrot_ascii_color.png)
 
+![mandel_gui](src/Mandelbrot/examples/mandelbrot_gui_80_iter.gif)
 
 ## Sierpińsky carpet
 
@@ -35,7 +36,7 @@ C library that simulates many fractals. You can generate them into terminal, int
 ## TODO
 - [ ] ASCII User interface
 - [x] Mandebrot ascii
-- [ ] Mandebrot GUI
+- [x] Mandebrot GUI
 - [x] Mandebrot render image
 - [x] Sierpińsky carpet ascii
 - [ ] Sierpińsky carpet GUI

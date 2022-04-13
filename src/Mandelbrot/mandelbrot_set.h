@@ -235,10 +235,10 @@ int renderMandelbrot(int width, int height, int format_, int color) {
     }
     if (format_ == 0) {
         // rendering png
-        stbi_write_png("png_test.png", width, height, 3, data, width*3);
+        stbi_write_png("mandelbrot_rendered_image.png", width, height, 3, data, width*3);
     } else {
         // rendering jpg
-        stbi_write_jpg("jpg_test.jpg", width, height, 3, data, 100);
+        stbi_write_jpg("madnelbrot_rendered_image.jpg", width, height, 3, data, 100);
     }
 
     return 0;

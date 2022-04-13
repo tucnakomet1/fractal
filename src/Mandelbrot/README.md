@@ -3,13 +3,19 @@ Mandelbrot set
 
 ## Examples
 
+### Mandelbrot set ASCII
+
 *Resolution 169 x 931; min zoom*
 
 | Normal mode ASCII | Color mode ASCII | Color mode inverse ASCII |
 | --- | --- | --- |
 | ![normal_ascii](examples/mandelbrot_ascii.png) | ![color_ascii](examples/mandelbrot_ascii_color.png) | ![color_inverse_ascii](examples/mandelbrot_ascii_color_inverse.png) |
 
+Text example also avaiable [here](mandelbrot_ascii.txt).
+
 <br>
+
+### Mandelbrot set Rendered images
 
 *Rendered 3000 x 2000 using STB, 80 iterations*
 
@@ -17,8 +23,16 @@ Mandelbrot set
 | --- | --- | --- |
 | ![color_png](examples/color_80_iter.png) | ![gray_jpg](examples/gray_80_iter.jpg) | ![sepia_jpg](examples/sepia_80_iter.jpg) |
 
+<br>
 
-Text example also avaiable [here](mandelbrot_ascii.txt).
+### Mandelbrot set GUI (SDL)
+*Resolution 1080 x 720, made using SDL, 80 iterations*
+
+![color_gui](examples/mandelbrot_gui_80_iter.gif)
+
+<br>
+
+
 
 
 ## A little bit of theory 

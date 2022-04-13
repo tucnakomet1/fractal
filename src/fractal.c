@@ -35,8 +35,11 @@ int main() {
         renderMandelbrot(3000, 2000, 0, 1);
         
     } else if (option == 4) {
-        // Mandelbrot GUI
-        mandelbrot_sdl();
+        // Mandelbrot GUI 
+        /* int color ---> 0 = colored; 1 = gray; 2 = sepia;
+         */
+
+        mandelbrot_sdl(1);
     }
 
     return 0;
