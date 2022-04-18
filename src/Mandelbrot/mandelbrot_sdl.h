@@ -174,6 +174,7 @@ int mandelbrot_sdl(int colour) {
                     // set min zoom --> cannot be smaller than 1
                     if(zoom > 1.0) { 
                         zoom = zoom2 = 1.0;
+                        x = WIDTH, y = HEIGHT;
                         rs = REAL_START, re = REAL_END;
                         is = IMAG_START, ie = IMAG_END;
                     } else {

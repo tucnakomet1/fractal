@@ -35,7 +35,7 @@ Text example also avaiable [here](mandelbrot_ascii.txt).
 
 
 
-## A little bit of theory 
+### A little bit of theory 
 
 The equation for Mandelbrot set is:  $f_{c}(z)=z^{2}+c$
 
@@ -47,7 +47,7 @@ All we have to know (and realise) is in this table:
 When plugged into the main equation, we get:
 $z_1 = 0^2 + c \iff z_1 = a+bi$
 
-So all we have now is the complex number $c; c \in \mathbb{C}$.
+So all we have now is $c \in \mathbb{C}$.
 
 But when we continue:
 $z_2 = z_1^2+c \iff z_2 = c^2+c \iff z_1 = (a+bi)^2 + c$
@@ -56,65 +56,44 @@ Then $(a + bi)^2$ *using $A^2 + 2AB + B^2$*
 
 $(a+bi)^2 = a^2 + 2abi + b^2 \cdot i^2 = a^2 - b^2 + 2abi$
 
-$z_2 = a^2 - b^2 + 2abi + a + bi$
 Which is, as we can see, another complex number with real part $a^2 - b^2$ and imaginary one $2ab$.
 
-This process'll continue to the endless, so we have to set limitation → you can set whatever you want, I set **250** becouse its useless to use more iterations than that. `#define LIMIT 250`
+This process will continue indefinitely, so we need to set limits → you can set whatever you want, I set **80** (on my PC it's still pretty fast :] and it looks nice (in color) ). `#define LIMIT 80`
 
 
-## Programming integration
+### Programming integration
 
-Now we have to integrate all that simple math into code.
+Now we need to incorporate all these simple mathematical calculations into the code.
 
-First, it's fine to know the size of terminal window.
-
-```c
-#include <sys/ioctl.h>
-#include <complex.h>
-
-int width, height;
-
-void getResolution() {
-    struct winsize wnsz;
-    ioctl(0, TIOCGWINSZ, &wnsz);
-
-    width = (wnsz.ws_row);
-    height = (wnsz.ws_col);
-}
-
-```
-
-Now we have to represent "pixels". It's gonna be `x` and `y` loop in `callMandelbrot()` function.
+First we need to define all the important values.
 
 ```c
-void callMandelbrot() {
-    getResolution();
+#define WIDTH 1080
+#define HEIGHT 720
 
-    for (int y = 0; y < width; y++) {
-        for (int x = 0; x < height; x++) {
-            // calling mandelbrot 
-        } printf("\r\n");
-    }
-}
+#define REAL_START -2.5   // start value for real part
+#define REAL_END 1.0
+#define IMAG_START -1     // start value for imaginary part
+#define IMAG_END 1.0
+
+#define ZOOM 2            // zoom starts at 2
+#define ITERATION 80      // number of iterations - (higher = slower)
 ```
 
-The basics are done, now we have to integrate the complex numbers.
-First, we have to set (define) `LIMIT` of iterations, `START` position for $\mathbb{R}$ numbers, `START2` position for $\mathbb{C}$ numbers and `END` position:
-
-```c
-#define LIMIT 250
-#define START -2.0
-#define START2 -1.0
-#define END 1.0
-```
-
+Now we have to represent "pixels". It's gonna be `x` and `y` loop.
 We can calculate the starting $a$ and $b$ using the defined values.
+
 ```c
-// *calling mandelbrot*
+double rs = REAL_START, re = REAL_END;
+double is = IMAG_START, ie = IMAG_END;
+
+// function() {
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
             // a... real number; 
             // b... imaginary number
-            double a = START + ((double) x / height) * (END - START);
-            double b = START2 + ((double) y / width) * (END - START2);
+            double a = rs + (((double) x / HEIGHT)/1.5) * (re - rs);
+            double b = is + (((double) y / WIDTH)*1.5) * (ie - is);
 
             // c = a + bi;
             double complex c = CMPLX(a, b);
@@ -123,14 +102,14 @@ We can calculate the starting $a$ and $b$ using the defined values.
             int m = calculateMandel(c);
 ```
 
-Lets integrate the math and calculate the mendelbrot...
-We can do the same as in the theory section. Lets $z=0$. We know, that Hausdorff measure is 2, so we won't have higher value.
+Let's integrate math and calculate the Mendelbrot set...
+We can proceed as in the theoretical part. Let $z=0$. We know that the Hausdorff measure is 2, so we won't have a higher value.
 
-If $|z_n| \leq m$ and if the $n$ is lower than iteration `LIMIT` than we can calculate using the basic equation: $z_{n+1}=z_n^2+c$
+If $|z_n| \leq m$ and if $n$ is less than the iterative limit (`ITERATION`), we can calculate using the basic equation: $z_{n+1}=z_n^2+c$.
 
-I made just for better clarity parameter `zz`, it's just powered $z$.
+For clarity, I created the parameter `zz`, it's just a powered $z$.
 
-*Functions `Cpow` and `Cadd` are just for simple complex number operations.*
+*The `Cpow` and `Cadd` functions are only for simple operations with complex numbers.*
 
 ```c
 
@@ -139,7 +118,7 @@ int calculateMandel(double complex c) {
     int n = 0;
 
     // |z| <= 2;  Hausdorff measure = 2
-    while ((cabs(z) <= 2) && (n < LIMIT)) {
+    while ((cabs(z) <= 2) && (n < ITERATION)) {
         // zz = z^2
         // z = z^2 + c <=> z = zz + c
         zz = Cpow(z);
@@ -151,65 +130,198 @@ int calculateMandel(double complex c) {
 
 ```
 
-And that's practically all. We just have to print the function now.
+## Adding color
+
+Mandelbrot set is much nicer when displayed in colors. 
+First we need to convert HSV (hue, saturation, value) to RGB (red, green, blue). I have created a simple converter, based on the basics from [this](https://www.rapidtables.com/convert/color/hsv-to-rgb.html) website.
+
+```c
+            int m = calculateMandel(c);
+
+            if (m < ITERATION) {
+                int R, G, B;
+
+                int H = (255 * m) / ITERATION;
+                int S = 100;
+                int V = 100;
+
+                int r = hsv_to_rgb(H, S, V, 0);
+                int g = hsv_to_rgb(H, S, V, 1);
+                int b = hsv_to_rgb(H, S, V, 2);
+```
+
+I have 4 ways to color it here.
+
+1. red (main color)
+
+Nothing changes, the RGB is calculated based on the previous function. They are just redefined to the resulting values from `r` to `R` etc.
+
+```c
+                if (color_type == 0) {
+                    R = r;
+                    G = g;
+                    B = b;
+                }
+```
+
+2. randomly
+
+Best looking filter (at least for me).
+
+```c  
+                else if (color_type == 1) {
+                    R = m % 4 * 64;
+                    G = m % 8 * 32;
+                    B = m % 16 * 16;
+                }
+```
+
+3. grey
+
+Replacing RGB with one color - grey - is obtained by a well-known and simple equation. We then put this one color for all the variables `R`, `G`, `B`.
+
+```c
+                else if (color_type == 2) {
+                    int gray = 0.299*r + 0.587*g + 0.114*b;
+                    R = G = B = gray;
+
+                } 
+```
+
+4. sepia
+
+For sepia filter, we have known equations too.
+
+```c
+                else if (color_type == 3) {
+                    R = 0.393*r + 0.769*g + 0.189*b;
+                    G = 0.349*r + 0.686*g + 0.168*b;
+                    B = 0.272*r + 0.534*g + 0.131*b;
+                } 
+```
+
+And that's practically all. We just have to print the Mandelbrot set now.
+
+### 1. Printing into terminal - no color
+
 The best is, to use characters sorted by brightness and then print them by $m$ value.
 
 ```c
 #define ASCII "M@#W$BG5E20Tbca?1!;:+=-,._` "
 #define ASCII2 " `_.,-=+:;!1?acbT02E5GB$W#@M" // reversed chars
 
-// [...]
+//          [...]
             int m = calculateMandel(c);
 
-            if (m > LIMIT) {
+            if (m >= ITERATION) {
                 printf(" ");
             } else {
                 printf("%c", ASCII2[(m - 1) % strlen(ASCII2)]);
             }
 
 ```
+### 2. Printing into terminal - color
 
-### Coloring Mandelbrot
-We can easy calculate the HSV (Hue, Saturation, Value) and then convert it into RGB and then just print it using ANSII Escape code.
-
-ANSI for RGB in foreground is defined by this:
+First we define the ANSI code for rgb and for returning to the normal cursor color. Then we just need to print using our known predefined values `R`, `G`, `B`.
 
 ```c
-#define ANSI_f_start "\x1b[38;2;"   // for foreground
-#define ANSI_end "\x1b[0m"          // to end ANSI coloring
+#define ANSI_f_start "\x1b[38;2;"
+#define ANSI_end "\x1b[0m"
+
+// [...]
+                printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);
 ```
 
-The calculation proces could look like this. At first, set the Saturation and Hue to `100` and calculate the Hue using simple formula $255 \cdot \frac{m}{LIMIT}$. If m is equal to LIMIT, we set the color to black (value = `0`).
+### 3. Rendering to image - color
 
-Now we just need to convert the HSV to RGB. I made simple convertor based on few articles...
-
-And thats all. Import `<stdbool.h>` and add parameter into main function. 
-
-If you want to print the color (`color = true`), print it using:
-`printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);`. 
-
-Otherwise use the normal print based on brightness.
+To render the image I used the [STB](https://github.com/nothings/stb) library (stored in `/fractal/src/stb/` you have to make this directory and download `stb_image.h` and `stb_image_write.h` )
 
 ```c
-                // define HSV and RGB as integers
-                int H, S, V, r, g, b;
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../stb/stb_image.h"
+#include "../stb/stb_image_write.h"
+```
 
-                H = (255 * m) / LIMIT;
-                S = 100;
-                V = 100;
+First, we allocate data memory for future use.
+*3 = three channels R, G, B*
 
-                // set color black if m equals to LIMIT
-                if (m == LIMIT) { V = 0; }
+```c
+    size_t check = WIDTH * HEIGHT * 3;
+    unsigned char *data = calloc(check, sizeof *data);
+    int n = 0;
+```
 
-                // convert HSV to RGB
-                r = hsv_to_rgb(H, S, V, 0);
-                g = hsv_to_rgb(H, S, V, 1);
-                b = hsv_to_rgb(H, S, V, 2);
+In the color functions we need to replace R, G, B and replace them with the expression `data[n++] = (unsigned char)`. ( Like this: )
 
-
-                if (color) {
-                    printf("%s%d;%d;%dm%c%s", ANSI_f_start, r, g, b, ASCII2[(m) % strlen(ASCII2)], ANSI_end);
-                } else {
-                    printf("%c", ASCII[(m) % strlen(ASCII)]);
+```c
+                else if (color == 1) {
+                    data[n++] = (unsigned char)m % 4 * 64;
+                    data[n++] = (unsigned char)m % 8 * 32;
+                    data[n++] = (unsigned char)m % 16 * 16;
                 }
+```
+
+And then after all the loops, we select the image format and then render it.
+
+```c
+        // rendering png
+        stbi_write_png("mandelbrot_rendered_image.png", WIDTH, HEIGHT, 3, data, width*3);
+        // rendering jpg
+        stbi_write_jpg("madnelbrot_rendered_image.jpg", WIDTH, HEIGHT, 3, data, 100);
+```
+
+4. Live viewing using GUI
+
+This part was made using [SDL](https://github.com/libsdl-org/SDL) library. You'll import it using:
+
+```c
+#include <SDL.h>
+#include <SDL2/SDL.h>
+```
+
+And then you update and enter data in each loop.
+
+```c
+void drawMandelbrot(SDL_Window *win, SDL_Surface *win_surface) {
+    static SDL_Rect rect;
+
+    // mandelbrot calculation loop
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+            // [...]
+            int m = calculateMandel(c);
+
+            if (m < ITERATION) {
+                // [...]
+                ((Uint32*)win_surface->pixels)[(y * win_surface->w) + x] = (m >= ITERATION)? 0 :
+                    SDL_MapRGB(win_surface->format, R, G, B);
+            } else {
+                ((Uint32*)win_surface->pixels)[(y * win_surface->w) + x] = (m >= ITERATION)? 0 :
+                    SDL_MapRGB(win_surface->format, 0, 0, 0);
+            }
+        }
+    }
+    SDL_UpdateWindowSurface(win);
+}
+```
+
+## Zooming
+
+Nothing hard, just recalculate `REAL`& `IMAG_START` and `REAL`& `IMAG_END` according to the new `x` and `y` values (by the mouse click location - coordinates).
+```c
+void Zoom(double zoom, double x, double y) {
+    // mouse clicked axes to set the center
+	  double a = rs + (re - rs)*x / WIDTH;
+    double b = is + (ie - is)*y / HEIGHT;
+
+		// aa --> real; bb --> imaginary
+		double aa = a - (re - rs) / 2 / zoom;
+		re = a + (re - rs) / 2 / zoom;
+		rs = aa;
+
+		double bb = b - (ie - is) / 2 / zoom;
+		ie = b + (ie - is) / 2 / zoom;
+		is = bb;
+}
 ```
