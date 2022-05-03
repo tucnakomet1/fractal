@@ -1,52 +1,47 @@
 #include <stdio.h>
 #include <math.h>
 
+// counting if x & y is in carpet or not
+int isInCarpet(int x, int y) {
 
-int printSquare(int n, int x, int y, int size) {
-    int div;
-    // print input values
-    printf("n: %d, x: %d, y: %d, size: %d\n", n, x, y, size);
+    while(1) {
+        if ((x == 0) || (y == 0)) {
+            return 0;
+        } else if ((x % 3 == 1) && (y % 3 == 1)) {
+            // if mod is 1
+            return 1;
+        }
+    
+        x = x/3;
+        y = y/3;    
+    }
+}
 
-    FILE *file;
-    file = fopen("fractal.txt", "w");
+// main function
+void printSquare(int n) {
+    int div, size;
 
-    // funciton
+    //FILE *file;
+    //file = fopen("fractal.txt", "w");
+
+    size = (int)pow(3, n);
     for (int y = 0; y < size; y++) {
-        //fflush(stdin);
         for (int x = 0; x < size; x++) {
-            //counting
-            for (div = size/3; div; div /= 3 ) {
 
-                // if modulo == 1 -->
-                if (((y % (div * 3)) / div == 1) && (((x % (div * 3)) / div == 1))) {
-                    //printf("y: %d, x: %d, div: %d   -->   (%d % (%d * 3)) / %d,    (%d %, %d) = %d \n", y, x, div, x, div, div, x, div*3, (x % (div*3)));
-                    break;
-                } 
-            }
-
-            if (div == 0) {
-                //printf("ŇŇ");
-                printf("\x1b[48;5;15m  \x1b[0m");
-                fprintf(file, "ŇŇ");
+            if (isInCarpet(x, y) == 0) {
+                printf("ŇŇ");
+                //fprintf(file, "ŇŇ");
             } else {
                 printf("  ");
-                fprintf(file, "  ");
+                //fprintf(file, "  ");
+                ;
             }
-
         }
+
         printf("\n");
-        fprintf(file, "\n");
+        //fprintf(file, "\n");
     }
-    fclose(file);
+    //fclose(file);
 }
 
-
-// resizing -> by "pixels"
-int nCount(int n) {
-    int size = 1;
-
-    for (int i = 0; i < n; i++) { size = size * 3; }
-
-    return size;
-}
 

@@ -16,7 +16,7 @@ int main() {
         printf("\nEnter n: ");
         scanf("%d", &n);
         
-        printSquare(n, 0, 0, nCount(n));
+        printSquare(n);
 
     } else if (option == 2) {
         // Mandelbrot set ascii mode

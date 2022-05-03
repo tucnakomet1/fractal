@@ -6,8 +6,6 @@ C library that simulates many fractals. You can generate them into terminal, int
 
 ## Mandelbrot set
 
-- currently in main development
-
 - [x] Available in ascii
 - [x] Available in GUI (almost done)
 - [x] Available in rendered image
@@ -27,6 +25,8 @@ C library that simulates many fractals. You can generate them into terminal, int
 ![gif](src/Sierpinsky/sierpenski.gif)
 
 ## Sierpińsky Triengle
+
+- currently in main development
 
 - [ ] Available in ascii
 - [ ] Available in GUI
