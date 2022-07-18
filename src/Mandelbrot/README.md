@@ -41,8 +41,8 @@ The equation for Mandelbrot set is:  $f_{c}(z)=z^{2}+c$
 
 All we have to know (and realise) is in this table:
 
-| $z_0=0$ | $z_{n+1}=z_n^2+c$ | $c = a + bi$ | $i^2 = -1$
-| --- | --- | --- | --- |
+| $z_0=0$ |  | $z_{n+1}=z_n^2+c$ | $c = a + bi$ | $i^2 = -1$ |
+|---------|--|-------------------|--------------|------------|
 
 When plugged into the main equation, we get:
 $z_1 = 0^2 + c \iff z_1 = a+bi$

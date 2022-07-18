@@ -198,7 +198,7 @@ int renderMandelbrot(int width, int height, int format_, int color) {
                     data[n++] = (unsigned char)b;
  
                 } else if (color == 1) {
-                    // colorfull filter
+                    // colorful filter
 
                     data[n++] = (unsigned char)m % 4 * 64;
                     data[n++] = (unsigned char)m % 8 * 32;

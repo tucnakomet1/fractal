@@ -28,7 +28,7 @@ void exitSDL(SDL_Window *win, SDL_Surface *win_surface) {
 
 // zoom calculation
 void Zoom(double zoom, double x, double y) {
-        // mouse click axes to the the center
+        // mouse click axes to the center
 	    double a = rs + (re - rs)*x / WIDTH;
 	    double b = is + (ie - is)*y / HEIGHT;
 
@@ -79,7 +79,7 @@ void drawMandelbrot(SDL_Window *win, SDL_Surface *win_surface) {
                     G = g;
                     B = b;
                 } else if (color_type == 1) {
-                    // colorfull filter
+                    // colorful filter
 
                     R = m % 4 * 64;
                     G = m % 8 * 32;
@@ -149,7 +149,7 @@ int mandelbrot_sdl(int colour) {
                 // zoom in & out using mouse button
 
                 if (event.button.button == SDL_BUTTON_LEFT) {
-                    // zooming in, ledt click
+                    // zooming in, left click
 
                     double x = event.button.x;
                     double y = event.button.y;
@@ -188,6 +188,5 @@ int mandelbrot_sdl(int colour) {
                 break;
         }
     }
-    return 0;
 }
 
