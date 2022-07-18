@@ -7,9 +7,9 @@ Mandelbrot set
 
 *Resolution 169 x 931; min zoom*
 
-| Normal mode ASCII | Color mode ASCII | Color mode inverse ASCII |
-| --- | --- | --- |
-| ![normal_ascii](examples/mandelbrot_ascii.png) | ![color_ascii](examples/mandelbrot_ascii_color.png) | ![color_inverse_ascii](examples/mandelbrot_ascii_color_inverse.png) |
+|               Normal mode ASCII                |                  Color mode ASCII                   |                   Color mode inverse ASCII                    |
+| ---------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------- |
+| ![normal_ascii](examples/mandelbrot_ascii.png) | ![color_ascii](examples/mandelbrot_ascii_color.png) | ![color_inverse_ascii](examples/mandelbrot_ascii_incolor.png) |
 
 Text example also avaiable [here](mandelbrot_ascii.txt).
 
@@ -19,9 +19,9 @@ Text example also avaiable [here](mandelbrot_ascii.txt).
 
 *Rendered 3000 x 2000 using STB, 80 iterations*
 
-| Color mode | Gray filter | Sepia filter |
-| --- | --- | --- |
-| ![color_png](examples/color_80_iter.png) | ![gray_jpg](examples/gray_80_iter.jpg) | ![sepia_jpg](examples/sepia_80_iter.jpg) |
+|                  Color mode                   |                  Gray filter                  |                  Sepia filter                   |
+| --------------------------------------------- | --------------------------------------------- | ----------------------------------------------- |
+| ![color_png](examples/mandelbrot_stb_red.png) | ![gray_jpg](examples/mandelbrot_stb_gray.jpg) | ![sepia_jpg](examples/mandelbrot_stb_sepia.jpg) |
 
 <br>
 

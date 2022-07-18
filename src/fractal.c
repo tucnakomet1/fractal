@@ -3,7 +3,7 @@
 #include "Sierpinski/sierpinski_carpet.h"
 #include "Mandelbrot/mandelbrot_set.h"
 #include "Mandelbrot/mandelbrot_sdl.h"
-#include "Lorentz/lorentz_atractor.h"
+#include "Lorenz/lorenz_atractor.h"
 
 int main() {
     int option, rend, n;
@@ -11,7 +11,7 @@ int main() {
     printf("0 - Cantor set\n"
             "1 - Sierpiński carpet\n"
             "2 - Sierpiński triangle\n"
-            "3 - Lorentz attractor\n"
+            "3 - Lorenz attractor\n"
             "4 - Mandelbrot set\n"
             "5 - Koch snowflake\n"
             "6 - Barnsley fern\n"
@@ -60,7 +60,7 @@ int main() {
             /* int width;
              * int height;
              * int format --> 0 = png;     1 = jpg;
-             * int color ---> 0 = colored; 1 = gray; 2 = sepia;
+             * int color ---> 0 = colored; 1 = red; 2 = gray; 3 = sepia;
              */
             renderMandelbrot(3000, 2000, 0, 1);
         } else if (rend == 3) {
