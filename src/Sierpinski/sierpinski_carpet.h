@@ -3,8 +3,6 @@
 #include <sys/ioctl.h>
 #include <stdlib.h>
 
-int d = 0;
-
 // check if x, y is in carpet - for ASCII
 int isInCarpetA(int x, int y) {
     while(1) {

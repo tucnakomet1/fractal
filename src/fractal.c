@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "Cantor/cantor_set.h"
 #include "Sierpinski/sierpinski_carpet.h"
 #include "Mandelbrot/mandelbrot_set.h"
 #include "Mandelbrot/mandelbrot_sdl.h"
@@ -22,6 +23,8 @@ int main() {
     if (option == 0) { 
         // Cantor set
         printf("\nNot done yet.\n");
+
+        renderCantor(800, 600, 1, 0);
 
     } else if (option == 1) {
         // Sierpiński carpet
