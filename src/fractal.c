@@ -22,9 +22,19 @@ int main() {
 
     if (option == 0) { 
         // Cantor set
-        printf("\nNot done yet.\n");
+        
+        printf("\n1 - ASCII\n2 - stb\nEnter option: ");
+        scanf("%d", &rend);
 
-        renderCantor(800, 600, 1, 0);
+        if (rend == 1) {
+            printCantor(5); // int iter; -> iteration number
+        } else if (rend == 2) {
+            /* int width; -> width of rendered image
+             * int iter;  -> iteration number
+             * int color; -> 0 (white), 1 (color)
+             */
+            renderCantor(1000, 6, 1);
+        }   
 
     } else if (option == 1) {
         // Sierpiński carpet
@@ -32,9 +42,14 @@ int main() {
         printf("\n1 - ASCII\n2 - stb\nEnter option: ");
         scanf("%d", &rend);
         if (rend == 1) {
-            printCarpet(4);
+            printCarpet(4); // int iter; -> iteration number
         } else if (rend == 2) {
-            renderCarpet(1600, 1600, 5, 1);
+            /* int width; -> width of rendered image
+             * int iter;  -> iteration number
+             * int color; -> 0 (white), 1 (color)
+             */
+
+            renderCarpet(1600, 5, 1);
         }
 
     } else if (option == 2) {

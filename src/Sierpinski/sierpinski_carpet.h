@@ -33,14 +33,6 @@ void printCarpet(int iter) {
 }
 
 /* stb */
-// check if input resolution is square sized - for stb
-int checkSRatio(int w, int h) {
-    if (w == h) { return 0; } 
-    else {
-        if (w > h) { return w; }
-        else { return h; }
-    }
-}
 
 // check if pixel is in carepet - for stb
 int isInCarpet(double x, double y, int n) {
@@ -58,11 +50,10 @@ int isInCarpet(double x, double y, int n) {
 }
 
 // main stb function - rendering carpet into image
-void renderCarpet(int width, int height, int iter, int color) {
+void renderCarpet(int width, int iter, int color) {
     int r, g, b;
 
-    int sratio = checkSRatio(width, height);
-    if (sratio > 0) { width = sratio; height = sratio; }
+    int height = width;
 
     // allocating memory
     size_t check = width * height * 3;
@@ -76,7 +67,10 @@ void renderCarpet(int width, int height, int iter, int color) {
         else { r = g = b = 255; } // white
 
         for (int x = 0; x < width; x++) {
-            int isC = isInCarpet((double)x/(double)width*3.0, (double)y/(double)height*3.0, iter);
+            int isC = isInCarpet(
+                    (double)x/(double)width*3.0,
+                    (double)y/(double)height*3.0, 
+                    iter);
 
             if (isC) {
                 data[n++] = (unsigned char)r;
