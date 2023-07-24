@@ -5,6 +5,17 @@
 
 #define STRIPE_HEIGHT 13
 
+void plotPoint(unsigned char* image, int width, int x, int y, int color) {
+    int r, g, b;
+    if (color == 1) { r=rand()%250; g= 255 - rand()%150; b=rand()%150;} // color stripes
+    else { r = g = b = 255; }                                    // white
+
+    image[(y * width + x)*3] = r;
+    image[(y * width + x)*3 + 1] = g;
+    image[(y * width + x)*3 + 2] = b;
+
+}
+
 // check if pixel is in set - for ASCII + stb
 int isInCantor(int x, int width, int it) {
     int is_inside = 1; // true
@@ -38,23 +49,12 @@ void printCantor(int iter) {
     }
 }
 
-
-// main stb function - rendering carpet into image
-void renderCantor(int width, int iter, int color) {
-    int r, g, b, height, n, it, isC;
-
-    height = STRIPE_HEIGHT * (2*iter - 1);
-    n = 0; it = 0;
-
-    // allocating memory
-    size_t check = width * height * 3;
-    unsigned char *data = calloc(check, sizeof *data);
+int countCantor(unsigned char* image, int width, int height, int color) {
+    int r, g, b, isC;
+    int n = 0, it = 0;
 
     for (int y = 0; y < height; y++) {
         if (y == (it+1)*STRIPE_HEIGHT) { it++; }
-
-        if (color == 1) { r=rand()%255; g=rand()%255; b=rand()%255;} // color stripes
-        else { r = g = b = 255; } // white
 
         for (int x = 0; x < width; x++) {
             int iter;
@@ -65,19 +65,32 @@ void renderCantor(int width, int iter, int color) {
             isC = isInCantor(x, width, iter);
 
             if ((it % 2 == 0) && isC) {
-                data[n++] = (unsigned char)r;
-                data[n++] = (unsigned char)g;
-                data[n++] = (unsigned char)b;
-            } else {
-                data[n++] = (unsigned char)0;
-                data[n++] = (unsigned char)0;
-                data[n++] = (unsigned char)0;
+                plotPoint(image, width, x, y, color);
             }
         }
+            
     }
-    printf("\%d\n", n);
 
-    stbi_write_png("cantor_set_stb.png", width, height, 3, data, width*3);
-    printf("Done!\n");
+}
+
+
+// main stb function - rendering carpet into image
+void renderCantor(int width, int iter, int color) {
+
+    int height = STRIPE_HEIGHT * (2*iter - 1);
+
+    // allocating memory
+    unsigned char image[width * height * 3];
+
+    // make whole image black (0 = black)
+    for (int i = 0; i < width * height * 3; i++) image[i] = 0;
+
+    // count cantor set points and plot them into image
+    countCantor(image, width, height, color);
+
+    // save image into png format
+    if (stbi_write_png("cantor_set.png", width, height, 3, image, width * 3) == 0) {
+        printf("Error: saving image");
+    }
 
 }

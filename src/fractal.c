@@ -1,10 +1,61 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "Cantor/cantor_set.h"
+#include "Cantor/cantor.h"
 #include "Sierpinski/sierpinski_carpet.h"
 #include "Mandelbrot/mandelbrot_set.h"
 #include "Mandelbrot/mandelbrot_sdl.h"
-#include "Lorenz/lorenz_atractor.h"
+#include "Lorenz/lorenz_attractor.h"
+
+void runCantor(int rend) {
+    printf("\n1 - ASCII\n2 - stb\nEnter option: ");
+    scanf("%d", &rend);
+
+    if (rend == 1) 
+        printCantor(5);              // int iter; -> iteration number
+    else if (rend == 2)
+        renderCantor(4000, 10, 1);   // width of img; number of iterations; 0 (white)/ 1 (color)
+
+}
+
+void runCarpet(int rend) {
+    printf("\n1 - ASCII\n2 - stb\nEnter option: ");
+    scanf("%d", &rend);
+
+    if (rend == 1)
+        printCarpet(4);             // int iter; -> iteration number
+    else if (rend == 2) 
+        renderCarpet(1600, 5, 1);   // width of img; num of iterations; 0 (white)/ 1 (color)
+}
+
+void runMandelbrot(int rend) {
+    printf("\n1 - ASCII\n2 - stb\n3 - SDL\nEnter option: ");
+    scanf("%d", &rend);
+
+    if (rend == 1) {
+        // Mandelbrot set in ascii
+
+        /* bool color */
+        printMandelbrot(true);
+
+    } else if (rend == 2) {
+        // Mandelbrot set in stb
+
+        /* int width;
+         * int height;
+         * int format --> 0 = png;     1 = jpg;
+         * int color ---> 0 = colored; 1 = red; 2 = gray; 3 = sepia;
+         */
+        renderMandelbrot(3000, 2000, 0, 1);
+    } else if (rend == 3) {
+        /* int color:
+         * 0 = colorful; 
+         * 1 = gray; 
+         * 2 = sepia;
+         */
+
+        mandelbrot_sdl(1);
+    }
+}
 
 int main() {
     int option, rend, n;
@@ -20,88 +71,22 @@ int main() {
             "Enter option: ");
     scanf("%d", &option);
 
-    if (option == 0) { 
-        // Cantor set
-        
-        printf("\n1 - ASCII\n2 - stb\nEnter option: ");
-        scanf("%d", &rend);
-
-        if (rend == 1) {
-            printCantor(5); // int iter; -> iteration number
-        } else if (rend == 2) {
-            /* int width; -> width of rendered image
-             * int iter;  -> iteration number
-             * int color; -> 0 (white), 1 (color)
-             */
-            renderCantor(1000, 6, 1);
-        }   
-
-    } else if (option == 1) {
-        // Sierpiński carpet
-        
-        printf("\n1 - ASCII\n2 - stb\nEnter option: ");
-        scanf("%d", &rend);
-        if (rend == 1) {
-            printCarpet(4); // int iter; -> iteration number
-        } else if (rend == 2) {
-            /* int width; -> width of rendered image
-             * int iter;  -> iteration number
-             * int color; -> 0 (white), 1 (color)
-             */
-
-            renderCarpet(1600, 5, 1);
-        }
-
-    } else if (option == 2) {
-        // Sierpiński triangle
+    if (option == 0)            // Cantor set
+        runCantor(rend);
+    else if (option == 1)       // Sierpiński carpet
+        runCarpet(rend);
+    else if (option == 2)       // Sierpiński triangle
         printf("\nNot done yet.\n");
-
-    } else if (option == 3) {
-        // Lorentz attractor
+    else if (option == 3)       // Lorenz attractor
+        renderLorenz(1920, 1080);
+    else if (option == 4)       // Mandelbrot set
+        runMandelbrot(rend);
+    else if (option == 5)       // Koch snowflake
         printf("\nNot done yet.\n");
-
-    } else if (option == 4) {
-        // Mandelbrot set
-        
-        printf("\n1 - ASCII\n2 - stb\n3 - SDL\nEnter option: ");
-        scanf("%d", &rend);
-
-        if (rend == 1) {
-            // Mandelbrot set in ascii
-
-            /* bool color */
-            printMandelbrot(true);
-
-        } else if (rend == 2) {
-            // Mandelbrot set in stb
-
-            /* int width;
-             * int height;
-             * int format --> 0 = png;     1 = jpg;
-             * int color ---> 0 = colored; 1 = red; 2 = gray; 3 = sepia;
-             */
-            renderMandelbrot(3000, 2000, 0, 1);
-        } else if (rend == 3) {
-            /* int color:
-             * 0 = colorful; 
-             * 1 = gray; 
-             * 2 = sepia;
-             */
-
-            mandelbrot_sdl(1);
-        }
-    } else if (option == 5) {
-        // Koch snowflake
+    else if (option == 6)       // Barnsley fern
         printf("\nNot done yet.\n");
-
-    } else if (option == 6) {
-        // Barnsley fern
+    else if (option == 7)       // Bifurcation graph
         printf("\nNot done yet.\n");
-
-    } else if (option == 7) {
-        // Bifurcation graph
-        printf("\nNot done yet.\n");
-    }
 
     return 0;
 }

@@ -34,6 +34,17 @@ void printCarpet(int iter) {
 
 /* stb */
 
+void plotCarpet(unsigned char* image, int x, int y, int width, int color) {
+    int r, g, b;
+    if (color == 1) { r=rand()%240; g=rand()%250; b=rand()%230;} // color stripes
+    else { r = g = b = 255; } // white
+    
+    image[(y * width + x)*3] = r;
+    image[(y * width + x)*3 + 1] = g;
+    image[(y * width + x)*3 + 2] = b;
+
+}
+
 // check if pixel is in carepet - for stb
 int isInCarpet(double x, double y, int n) {
     double factor = 1.0;
@@ -49,43 +60,38 @@ int isInCarpet(double x, double y, int n) {
     return isIn;
 }
 
-// main stb function - rendering carpet into image
-void renderCarpet(int width, int iter, int color) {
-    int r, g, b;
-
-    int height = width;
-
-    // allocating memory
-    size_t check = width * height * 3;
-    unsigned char *data = calloc(check, sizeof *data);
+void countCarpet(unsigned char* image, int width, int height, int iter, int color) {
     int n = 0;
 
-    if (!*data) { printf("\nRendering!\n"); }
-
     for (int y = 0; y < height; y++) {
-        if (color == 1) { r=rand()%255; g=rand()%255; b=rand()%255;} // color stripes
-        else { r = g = b = 255; } // white
-
         for (int x = 0; x < width; x++) {
             int isC = isInCarpet(
                     (double)x/(double)width*3.0,
                     (double)y/(double)height*3.0, 
                     iter);
 
-            if (isC) {
-                data[n++] = (unsigned char)r;
-                data[n++] = (unsigned char)g;
-                data[n++] = (unsigned char)b;
-            } else {
-                data[n++] = (unsigned char)0;
-                data[n++] = (unsigned char)0;
-                data[n++] = (unsigned char)0;
-            }
+            if (isC) plotCarpet(image, x, y, width, color);
         }
     }
-    printf("\%d", n);
 
-    stbi_write_png("sierpinski_carpet_stb.png", width, height, 3, data, width*3);
-    printf("Done!");
+}
 
+// main stb function - rendering carpet into image
+void renderCarpet(int width, int iter, int color) {
+    int height = width;
+
+    // allocating memory
+    unsigned char image[width * height * 3];
+
+    // make whole image black (0 = black)
+    for (int i = 0; i < width * height *3; i++)
+        image[i] = 0;
+    
+    // count the carpet points and plot them into image
+    countCarpet(image, width, height, iter, color);
+
+    // save the image into png format
+    if (stbi_write_png("sierpinski_carpet_stb.png", width, height, 3, image, width*3) == 0) {
+        printf("Error: saving image");
+    }
 }
