@@ -2,7 +2,38 @@
 
 C library that simulates fractals and attractors. You can generate them into terminal as ASCII art or into image (using [stb library](https://github.com/nothings/stb)).
 
-## Cantor set
+
+## Lorenz attractor
+
+- [ ] Available in ASCII
+- [x] Available in stb
+
+Lorenz attractor is a strange attractor named after Edward Lorenz who described it in 1963. The system is described by the following three equations:
+
+$$\frac{dx}{dt} = \sigma (y-x)$$
+$$\frac{dy}{dt} = x (\rho -z) -y$$
+$$\frac{dz}{dt} = xy-\beta x$$
+
+|                                                   stb                                                    |
+| ---------------------------------------------------------------------------------------- |
+| ![lorenz attractor in stb](src/Lorenz/examples/lorenz_attractor.png) |
+
+
+## Bifurcation diagram
+
+- [ ] Available in ASCII
+- [x] Available in stb
+
+$$x_{n+1} = x_n \cdot k \cdot (1- x_n)$$
+
+|                                                   stb                                                    |
+| ---------------------------------------------------------------------------------------- |
+| ![bifurcation diagram in stb](src/Bifurcation/examples/bifurcation_diagram.png) |
+
+
+## Fractals
+
+### Cantor set
 
 - [x] In ASCII
 - [x] In stb
@@ -25,7 +56,7 @@ The Cantor set gas a fractal dimension equal to $\frac{ln(2)}{ln(3)} \approx 0.6
 | ![cantor setin ASCII](src/Cantor/examples/cantor_set_ascii.png) | ![cantor set in stb](src/Cantor/examples/cantor_set_stb.png) |
 
 
-## Sierpiński carpet
+### Sierpiński carpet
 
 - [x] Available in ASCII
 - [x] Available in stb
@@ -43,27 +74,12 @@ The Sierpiński carpet has a fractal dimension equal to $\frac{log(8)}{log(3)} \
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | ![sierpinski carpet in ASCII](src/Sierpinski/examples/sierpinski_carpet_ascii.png) | ![sierpinski carpet in stb](src/Sierpinski/examples/sierpinski_carpet_stb.png) |
 
-## Sierpiński triangle
+### Sierpiński triangle
 
 - [ ] Available in ASCII
 - [ ] Available in stb
 
-## Lorenz attractor
-
-- [ ] Available in ASCII
-- [x] Available in stb
-
-Lorenz attractor is a strange attractor named after Edward Lorenz who described it in 1963. The system is described by the following three equations:
-
-$$\frac{dx}{dt} = \sigma (y-x)$$
-$$\frac{dy}{dt} = x (\rho -z) -y$$
-$$\frac{dz}{dt} = xy-\beta x$$
-
-|                                                   stb                                                    |
-| ---------------------------------------------------------------------------------------- |
-| ![lorenz attractor in stb](src/Lorenz/examples/lorenz_attractor.png) |
-
-## Mandelbrot set
+### Mandelbrot set
 
 - [x] Available in ASCII
 - [x] Available in stb
@@ -74,33 +90,29 @@ $$\frac{dz}{dt} = xy-\beta x$$
 | ![mandelbrot in ASCII](src/Mandelbrot/examples/mandelbrot_ascii_incolor_small.png) | ![mandelbrot in stb](src/Mandelbrot/examples/mandelbrot_stb_red_small.png) | ![mandelbrot in sdl](src/Mandelbrot/examples/mandelbrot_SDL_gui.gif) |
 
 
-## Koch snowflake
+### Koch snowflake
 
 - [ ] Available in ASCII
 - [ ] Available in stb
 
-## Barnsley fern
+### Barnsley fern
 
 - [ ] Available in ASCII
 - [ ] Available in stb
 
-## Bifurcation graph
-
-- [ ] Available in ASCII
-- [ ] Available in stb
 
 ## TODO
 - [ ] ASCII User interface
 
-| Sierpinski triangle | Lonenz attractor | Koch snowflake | Barnsley fern | Bifurcation graph |
+| Sierpinski triangle | Lonenz attractor | Koch snowflake | Barnsley fern | Bifurcation diagram |
 | ------------------- | ---------------- | -------------- | ------------- | ----------------- |
 | ASCII               | ASCII            | ASCII          | ASCII         | ASCII             |
-| stb                 | stb              | stb            | stb           | stb               |
+| stb                 |                  | stb            | stb           |                   |
 
 
 ## Done
 
-| Cantor set | Sierpinski carpet | Mandelbrot set |
-| ---------- | ----------------- | -------------- |
-| ASCII      | ASCII             | ASCII          |
-| stb        | stb               | stb, SDL       |
+| Cantor set | Sierpinski carpet | Mandelbrot set | Lonenz attractor | Bifurcation diagram |
+| ---------- | ----------------- | -------------- | ---------------- | ------------------- |
+| ASCII      | ASCII             | ASCII          | stb              | stb                 |
+| stb        | stb               | stb, SDL       |                  |                     |

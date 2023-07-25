@@ -50,15 +50,12 @@ void renderLorenz(int width, int height) {
     for (int i = 0; i < width * height *3; i++)
         image[i] = 0;
 
-    // other
-    int cent_x = width / 2;
-    int cent_y = height / 2;
-
+    
     // count the lorenz points and plot them into image
     countLorenz(image, width, height);
 
     // save the image into png format
     if (stbi_write_png("lorenz_attractor.png", width, height, 3, image, width*3) == 0) {
-        printf("Error: saving image");
+        printf("Error: saving image\n");
     }
 }
