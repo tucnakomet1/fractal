@@ -58,12 +58,10 @@ $(a+bi)^2 = a^2 + 2abi + b^2 \cdot i^2 = a^2 - b^2 + 2abi$
 
 Which is, as we can see, another complex number with real part $a^2 - b^2$ and imaginary one $2ab$.
 
-This process will continue indefinitely, so we need to set limits → you can set whatever you want, I set **80** (on my PC it's still pretty fast :] and it looks nice (in color) ). `#define LIMIT 80`
+This process will continue indefinitely, so we need to set limits → `#define LIMIT 80`
 
 
 ### Programming integration
-
-Now we need to incorporate all these simple mathematical calculations into the code.
 
 First we need to define all the important values.
 
@@ -76,8 +74,8 @@ First we need to define all the important values.
 #define IMAG_START -1     // start value for imaginary part
 #define IMAG_END 1.0
 
-#define ZOOM 2            // zoom starts at 2
-#define ITERATION 80      // number of iterations - (higher = slower)
+#define ZOOM 2                // zoom starts at 2
+#define ITERATION 80      // number of iterations
 ```
 
 Now we have to represent "pixels". It's gonna be `x` and `y` loop.
@@ -102,8 +100,7 @@ double is = IMAG_START, ie = IMAG_END;
             int m = calculateMandel(c);
 ```
 
-Let's integrate math and calculate the Mendelbrot set...
-We can proceed as in the theoretical part. Let $z=0$. We know that the Hausdorff measure is 2, so we won't have a higher value.
+We can proceed as in the theoretical part. Let $z=0$.
 
 If $|z_n| \leq m$ and if $n$ is less than the iterative limit (`ITERATION`), we can calculate using the basic equation: $z_{n+1}=z_n^2+c$.
 
@@ -199,8 +196,6 @@ For sepia filter, we have known equations too.
                     B = 0.272*r + 0.534*g + 0.131*b;
                 } 
 ```
-
-And that's practically all. We just have to print the Mandelbrot set now.
 
 ### 1. Printing into terminal - no color
 
@@ -308,7 +303,7 @@ void drawMandelbrot(SDL_Window *win, SDL_Surface *win_surface) {
 
 ## Zooming
 
-Nothing hard, just recalculate `REAL`& `IMAG_START` and `REAL`& `IMAG_END` according to the new `x` and `y` values (by the mouse click location - coordinates).
+Just recalculate `REAL`& `IMAG_START` and `REAL`& `IMAG_END` according to the new `x` and `y` values (by the mouse click location - coordinates).
 ```c
 void Zoom(double zoom, double x, double y) {
     // mouse clicked axes to set the center
