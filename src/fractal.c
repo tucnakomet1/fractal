@@ -1,19 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
-<<<<<<< HEAD
-#include "Cantor/cantor.h"
-#include "Sierpinski/sierpinski_carpet.h"
-#include "Mandelbrot/mandelbrot_set.h"
-#include "Mandelbrot/mandelbrot_sdl.h"
-#include "Lorenz/lorenz_attractor.h"
-=======
 #include "Cantor/cantor.c"
 #include "Sierpinski/sierpinski_carpet.c"
 #include "Mandelbrot/mandelbrot_set.c"
 #include "Mandelbrot/mandelbrot_sdl.c"
 #include "Lorenz/lorenz_attractor.c"
 #include "Bifurcation/bifurcation.c"
->>>>>>> abd62fc
 
 void runCantor(int rend) {
     printf("\n1 - ASCII\n2 - stb\nEnter option: ");
@@ -65,13 +57,10 @@ void runMandelbrot(int rend) {
         mandelbrot_sdl(1);
     }
 }
-<<<<<<< HEAD
-=======
 
 void runBifurcation() {
     renderBifurcation(2048, 1080, 500);
 }
->>>>>>> abd62fc
 
 int main() {
     int option, rend, n;
@@ -102,11 +91,7 @@ int main() {
     else if (option == 6)       // Barnsley fern
         printf("\nNot done yet.\n");
     else if (option == 7)       // Bifurcation graph
-<<<<<<< HEAD
-        printf("\nNot done yet.\n");
-=======
         runBifurcation();
->>>>>>> abd62fc
 
     return 0;
 }

@@ -90,11 +90,6 @@ void renderCantor(int width, int iter, int color) {
 
     // save image into png format
     if (stbi_write_png("cantor_set.png", width, height, 3, image, width * 3) == 0) {
-<<<<<<<< HEAD:src/Cantor/cantor.h
-        printf("Error: saving image");
-========
         printf("Error: saving image\n");
->>>>>>>> abd62fc:src/Cantor/cantor.c
     }
-
 }
