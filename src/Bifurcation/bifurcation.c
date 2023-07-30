@@ -32,7 +32,7 @@ void giveColor(int iter) {
     else g--;
 }
 
-void plotBifurcationPoint(unsigned char* image, int x, int y, int width, int iter) {
+void plotBifurcationPoint(unsigned char* image, int x, int y, int width) {
     image[(y * width + x)*3] = r;
     image[(y * width + x)*3 + 1] = g;
     image[(y * width + x)*3 + 2] = b;
@@ -50,7 +50,7 @@ void countBif(unsigned char* image, int width, int height, int numIter) {
             
             if (i > numIter / 2) {                                                  // stabilizes after numIter/2
                 int y = (int)(height * X);
-                if ((y >= 0) && (y < height)) plotBifurcationPoint(image, x, y, width, i);
+                if ((y >= 0) && (y < height)) plotBifurcationPoint(image, x, y, width);
             }
         }
     }

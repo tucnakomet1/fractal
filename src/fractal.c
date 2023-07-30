@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "Cantor/cantor.c"
-#include "Sierpinski/sierpinski_carpet.c"
-#include "Mandelbrot/mandelbrot_set.c"
-#include "Mandelbrot/mandelbrot_sdl.c"
-#include "Lorenz/lorenz_attractor.c"
+#include "Fractals/Cantor/cantor.c"
+#include "Fractals/Sierpinski/sierpinski_carpet.c"
+#include "Fractals/Mandelbrot/mandelbrot_set.c"
+#include "Fractals/Mandelbrot/mandelbrot_sdl.c"
 #include "Bifurcation/bifurcation.c"
 
 void runCantor(int rend) {
@@ -68,11 +67,10 @@ int main() {
     printf("0 - Cantor set\n"
             "1 - Sierpiński carpet\n"
             "2 - Sierpiński triangle\n"
-            "3 - Lorenz attractor\n"
-            "4 - Mandelbrot set\n"
-            "5 - Koch snowflake\n"
-            "6 - Barnsley fern\n"
-            "7 - Bifurcation graph\n"
+            "3 - Mandelbrot set\n"
+            "4 - Koch snowflake\n"
+            "5 - Barnsley fern\n"
+            "6 - Bifurcation graph\n"
             "Enter option: ");
     scanf("%d", &option);
 
@@ -82,15 +80,13 @@ int main() {
         runCarpet(rend);
     else if (option == 2)       // Sierpiński triangle
         printf("\nNot done yet.\n");
-    else if (option == 3)       // Lorenz attractor
-        renderLorenz(1920, 1080);
-    else if (option == 4)       // Mandelbrot set
+    else if (option == 3)       // Mandelbrot set
         runMandelbrot(rend);
-    else if (option == 5)       // Koch snowflake
+    else if (option == 4)       // Koch snowflake
         printf("\nNot done yet.\n");
-    else if (option == 6)       // Barnsley fern
+    else if (option == 5)       // Barnsley fern
         printf("\nNot done yet.\n");
-    else if (option == 7)       // Bifurcation graph
+    else if (option == 10)       // Bifurcation graph
         runBifurcation();
 
     return 0;

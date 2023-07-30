@@ -1,22 +1,6 @@
 # Chaos in stb
 
-C library that simulates fractals and attractors. You can generate them into terminal as ASCII art or into image (using [stb library](https://github.com/nothings/stb)).
-
-
-## Lorenz attractor
-
-- [ ] Available in ASCII
-- [x] Available in stb
-
-Lorenz attractor is a strange attractor named after Edward Lorenz who described it in 1963. The system is described by the following three equations:
-
-$$\frac{dx}{dt} = \sigma (y-x)$$
-$$\frac{dy}{dt} = x (\rho -z) -y$$
-$$\frac{dz}{dt} = xy-\beta x$$
-
-|                                                   stb                                                    |
-| ---------------------------------------------------------------------------------------- |
-| ![lorenz attractor in stb](src/Lorenz/examples/lorenz_attractor.png) |
+C library that simulates fractals and attractors (only in stb). You can generate them into terminal as ASCII art or into image (using [stb library](https://github.com/nothings/stb)).
 
 
 ## Bifurcation diagram
@@ -30,6 +14,67 @@ $$x_{n+1} = x_n \cdot k \cdot (1- x_n)$$
 | ---------------------------------------------------------------------------------------- |
 | ![bifurcation diagram in stb](src/Bifurcation/examples/bifurcation_diagram.png) |
 
+
+
+## Attractors
+
+### Lorenz attractor
+
+Lorenz attractor is a strange attractor named after Edward Lorenz who described it in 1963.
+
+For $\sigma = 10$, $\rho= 28$, $\beta = \frac 83$ and $x=0.1, y=0, z=0$ is the system described by the following three equations: $\begin{cases}\frac{dx}{dt} = \sigma (y-x)\\\frac{dy}{dt} = x (\rho -z) -y\\\frac{dz}{dt} = xy-\beta x\end{cases}$
+
+|                                                       stb                                                        |
+| ---------------------------------------------------------------------------------------------- |
+| ![Lorenz attractor](src/Attractors/Lorenz/examples/lorenz_attractor.png) |
+
+
+### Thomas attractor
+
+Thomas' cyclically symmetric attractor is a 3D strange attractor named after René Thomas.
+
+For $\lambda = 0.19$ and $x=0.1, y=0, z=0$ is the system described by the following three equations: $\begin{cases}\frac {dx}{dt}= \sin(y) - \lambda x\\\frac {dy}{dt}= \sin(z) - \lambda y\\\frac {dz}{dt}= \sin(x) - \lambda z\end{cases}$
+
+|                                                             stb                                                              |
+| --------------------------------------------------------------------------------------------------------- |
+| ![thoma attractor in stb](src/Attractors/Thomas/examples/thomas_attractor.png) |
+
+### Rössler attractor
+
+Lorenz attractor is an attractor named after Otto Rössler who described it in 1976.
+
+For $\alpha = 0.2$, $\beta= 0.2$, $\gamma= 14$ and $x=0.1, y=0, z=0$ is the system described by the following three equations: $\begin{cases}\frac {dx}{dt}=-y-z\\\frac {dy}{dt}=x+\alpha y\\\frac {dz}{dt}=\beta+z\cdot(x-\gamma)\end{cases}$
+
+
+|                                                         stb                                                         |
+| ------------------------------------------------------------------------------------------------- |
+| ![Rössler attractor](src/Attractors/Rossler/examples/rossler_attractor.png) |
+
+### Chen & Lu Chen attractor
+
+The (Lu) Chen attractor is named after Jinhu Lu and Guanrong Chen.
+
+For Chen attractor $\alpha = 40, \beta = 3, \gamma = 28$ and $x=-0.1, y=0.5, z=-0.6$ is the system described by the following three equations: $\begin{cases}\frac {dx}{dt}=\alpha \cdot (y - x)\\\frac {dy}{dt}=(\gamma - \alpha) \cdot x - xz + \gamma  y\\\frac {dz}{dt}=xy - \beta z\end{cases}$
+
+For Lu Chen attractor $\alpha = 34.5, \beta = 9, \gamma = 20, \omega = -10$ and $x = 0.1, y = 0.3, z = -0.6$ is the system described by the following three equations: $\begin{cases}\frac {dx}{dt}=\alpha \cdot (y - x)\\\frac {dy}{dt}=x - xz + \gamma y + \omega\\\frac {dz}{dt}=xy - \beta z\end{cases}$
+
+|                                                     Chen                                                      |                                                        Lu Chen                                                        |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| ![Chen attractor](src/Attractors/Multiscroll/examples/chen_attractor.png) | ![Lu Chen attractor](src/Attractors/Multiscroll/examples/lu_chen_attractor.png) |
+
+
+
+### Rabinovich–Fabrikant attractor
+
+The Rabinovich–Fabrikant equations are a set of three equations named after Mikhail Rabinovich and Anatoly Fabrikant, who described them in 1979.
+
+For $\alpha = 1.1, \gamma = 0.87$ and $x=-1, y=0, z=0.5$ is the system described by the following three equations: $\begin{cases}\frac {dx}{dt}=y \cdot (z-1+x^2) + \gamma x\\\frac {dy}{dt}=x\cdot (3z+1-x^2) + \gamma y\\\frac {dz}{dt}=-2z\cdot (\alpha +xy)\end{cases}$
+
+|                                                           stb 1                                                           |                                                            stb 2                                                             |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| ![Rabin attractor 1. variant](src/Attractors/Rabin/examples/rabin_attractor.png) | ![Rabin attractor 2. variant](src/Attractors/Rabin/examples/rabin_attractor2.png) |
+
+### Hénon map
 
 ## Fractals
 
@@ -51,9 +96,9 @@ $$\frac{1}3 + \frac{2}9 + \frac{4}{27} + \frac{8}{81} + ... = \sum_{n=0}^{\infty
 The Cantor set gas a fractal dimension equal to $\frac{ln(2)}{ln(3)} \approx 0.6309...$.
 
 
-|                              ASCII                              |                             stb                              |
-| --------------------------------------------------------------- | ------------------------------------------------------------ |
-| ![cantor setin ASCII](src/Cantor/examples/cantor_set_ascii.png) | ![cantor set in stb](src/Cantor/examples/cantor_set_stb.png) |
+|                                                      ASCII                                                      |                                                     stb                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| ![cantor setin ASCII](src/Fractals/Cantor/examples/cantor_set_ascii.png) | ![cantor set in stb](src/Fractals/Cantor/examples/cantor_set_stb.png) |
 
 
 ### Sierpiński carpet
@@ -70,9 +115,9 @@ $$S = 1 - \sum_{n=0}^\infty \frac{8^n}{9^{n+1}} \Longrightarrow a_1 = \frac{1}9,
 The Sierpiński carpet has a fractal dimension equal to $\frac{log(8)}{log(3)} \approx 1.8928...$ .
 
 
-|                                       ASCII                                        |                                      stb                                       |
-| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| ![sierpinski carpet in ASCII](src/Sierpinski/examples/sierpinski_carpet_ascii.png) | ![sierpinski carpet in stb](src/Sierpinski/examples/sierpinski_carpet_stb.png) |
+|                                                                   ASCII                                                                   |                                                                  stb                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| ![sierpinski carpet in ASCII](src/Fractals/Sierpinski/examples/sierpinski_carpet_ascii.png) | ![sierpinski carpet in stb](src/Fractals/Sierpinski/examples/sierpinski_carpet_stb.png) |
 
 ### Sierpiński triangle
 
@@ -85,9 +130,9 @@ The Sierpiński carpet has a fractal dimension equal to $\frac{log(8)}{log(3)} \
 - [x] Available in stb
 - [x] Available in SDL
 
-|                                       ASCII                                        |                                    stb                                     |                                 SDL                                  |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| ![mandelbrot in ASCII](src/Mandelbrot/examples/mandelbrot_ascii_incolor_small.png) | ![mandelbrot in stb](src/Mandelbrot/examples/mandelbrot_stb_red_small.png) | ![mandelbrot in sdl](src/Mandelbrot/examples/mandelbrot_SDL_gui.gif) |
+|                                                                       ASCII                                                                        |                                                                   stb                                                                    |                                                             SDL                                                             |
+| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| ![mandelbrot in ASCII](src/Fractals/Mandelbrot/examples/mandelbrot_ascii_incolor_small.png) | ![mandelbrot in stb](src/Fractals/Mandelbrot/examples/mandelbrot_stb_red_small.png) | ![mandelbrot in sdl](src/Fractals/Mandelbrot/examples/mandelbrot_SDL_gui.gif) |
 
 
 ### Koch snowflake
@@ -99,20 +144,3 @@ The Sierpiński carpet has a fractal dimension equal to $\frac{log(8)}{log(3)} \
 
 - [ ] Available in ASCII
 - [ ] Available in stb
-
-
-## TODO
-- [ ] ASCII User interface
-
-| Sierpinski triangle | Lonenz attractor | Koch snowflake | Barnsley fern | Bifurcation diagram |
-| ------------------- | ---------------- | -------------- | ------------- | ----------------- |
-| ASCII               | ASCII            | ASCII          | ASCII         | ASCII             |
-| stb                 |                  | stb            | stb           |                   |
-
-
-## Done
-
-| Cantor set | Sierpinski carpet | Mandelbrot set | Lonenz attractor | Bifurcation diagram |
-| ---------- | ----------------- | -------------- | ---------------- | ------------------- |
-| ASCII      | ASCII             | ASCII          | stb              | stb                 |
-| stb        | stb               | stb, SDL       |                  |                     |

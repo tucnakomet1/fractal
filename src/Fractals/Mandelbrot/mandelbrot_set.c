@@ -7,8 +7,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../stb/stb_image.h"
-#include "../stb/stb_image_write.h"
+#include "../../stb/stb_image.h"
+#include "../../stb/stb_image_write.h"
 
 #define ASCII2 "M@#W$BG5E20Tbca?1!;:+=-,._` "
 #define ASCII " `_.,-=+:;!1?acbT02E5GB$W#@M"
