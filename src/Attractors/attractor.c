@@ -5,6 +5,7 @@
 #include "Thomas/thomas_attractor.c"
 #include "Rabin/rabin_attractor.c"
 #include "Multiscroll/multiscroll_attractor.c"
+#include "Henon/henon_map.c"
 
 int main() {
     int width = 1920, height = 1080, option;
@@ -24,6 +25,7 @@ int main() {
             "3 - Rabin attractor\n"
             "4 - Chen attractor\n"
             "5 - Lu Chen attractor\n"
+            "6 - Hénon map\n"
             "Enter option: ");
     scanf("%d", &option);
 
@@ -45,6 +47,9 @@ int main() {
     } else if (option == 5) {                           // Lu Chen attractor
         strcpy(filename, "lu_chen_attractor.png");
         countLuChen(image, width, height, 80000);
+    } else if (option == 6) {                           // Hénon map
+        strcpy(filename, "henon_map.png");
+        countHenon(image, width, height, 1000000);
     }
 
     // save the image into png format

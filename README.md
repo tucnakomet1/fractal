@@ -2,6 +2,24 @@
 
 C library that simulates fractals and attractors (only in stb). You can generate them into terminal as ASCII art or into image (using [stb library](https://github.com/nothings/stb)).
 
+## Table of contents
+
+- [Bifurcation diagram](#bifurcation-diagram)
+- [Attractors](#attractors)
+  - [Lorenz attractor](#lorenz-attractor)
+  - [Thomas attractor](#thomas-attractor)
+  - [Rössler attractor](#rössler-attractor)
+  - [Chen & Lu Chen attractor](#chen-lu-chen-attractor)
+  - [Rabinovich–Fabrikant attractor](#rabinovichfabrikant-attractor)
+  - [Hénon map](#hénon-map)
+- [Fractals](#fractals)
+  - [Cantor set](#cantor-set)
+  - [Sierpiński carpet](#sierpiski-carpet)
+  - [Sierpiński triangle](#sierpiski-triangle)
+  - [Mandelbrot set](#mandelbrot-set)
+  - [Koch snowflake](#koch-snowflake)
+  - [Barnsley fern](#barnsley-fern)
+
 
 ## Bifurcation diagram
 
@@ -75,6 +93,14 @@ For $\alpha = 1.1, \gamma = 0.87$ and $x=-1, y=0, z=0.5$ is the system described
 | ![Rabin attractor 1. variant](src/Attractors/Rabin/examples/rabin_attractor.png) | ![Rabin attractor 2. variant](src/Attractors/Rabin/examples/rabin_attractor2.png) |
 
 ### Hénon map
+
+The Hénon map is a strange attractor named after Michel Hénon.
+
+For $\alpha = 1.4, \beta= 0.3$ and $x=0.1, y=0.1$ is the system described by the following two equations: $\begin{cases}x_{n+1} = 1 - \alpha x_n^2 + y_n \\y_{n+1} = \beta x_n\end{cases}$
+
+|                                                 stb                                                 |
+| ------------------------------------------------------------------------------------ |
+| ![Hénon map](src/Attractors/Henon/examples/henon_map.png) |
 
 ## Fractals
 
